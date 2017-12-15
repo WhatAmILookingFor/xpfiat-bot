@@ -6,6 +6,12 @@ require 'dotenv/load'
 
 bot = Discordrb::Commands::CommandBot.new token: ENV["TOKEN"], client_id: ENV["CLIENT_ID"], prefix:'?'
 
+fiat_command_list = {}
+def add_command(name, description, aliaces, args, &block)
+  fiat_command_list[name] = {description: description, aliaces: aliaces}
+  bot.command name.to_sym, *args, &block
+end
+
 module JoinAnnouncer
   extend Discordrb::EventContainer
 
